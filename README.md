@@ -1,4 +1,4 @@
-# data-structures
+# Node JS Data Structures
 Implementation of Classic Data Structures in Node JS
 
 - [x] Linked List
