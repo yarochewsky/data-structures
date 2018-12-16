@@ -10,16 +10,19 @@ class Stack {
 
     /*
      * peek - returns the element on the top of the stack (null is empty)
+     *        Throws error if empty
     */
     peek() {
+        if (this.ln.size == 0) throw new Error('Stack is empty');
         return this.ln.front.value;
     }
 
     /*
      * push - pushes a new element to the stack
+     * @element : element to be inserted
     */
     push(element) {
-        this.ln.push(element);
+        this.ln.pushFront(element);
     }
 
     /*
@@ -27,7 +30,7 @@ class Stack {
      *       if stack is empty
      *       Returns the removed element
     */
-    pop(element) {
+    pop() {
         if (this.ln.size == 0) {
             throw new Error('Stack is empty');
         }

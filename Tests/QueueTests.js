@@ -8,8 +8,8 @@
     describe('Queue Test Suite', () => {
         const queue = new Queue();
         
-        it('should push', () => {
-            queue.push(1);
+        it('should enqueue', () => {
+            queue.enqueue(1);
             assert.strictEqual(queue.isEmpty(), false);
         });
 
@@ -17,15 +17,15 @@
             assert.strictEqual(queue.peek(), 1);
         });
 
-        it('should pop', () => {
-            const removedElement = queue.pop();
+        it('should dequeue', () => {
+            const removedElement = queue.dequeue();
             assert.strictEqual(queue.isEmpty(), true);
             assert.strictEqual(removedElement, 1);
         });
 
-        it('should throw error when popped empty', () => {
+        it('should throw error when dequeueped empty', () => {
             assert.throws(() => {
-                queue.pop();
+                queue.dequeue();
             }, { message : 'Queue is empty' });
         });
     
@@ -36,13 +36,13 @@
         });
 
         it('should work for multiple values', () => {
-            queue.push('hello');
-            queue.push('world');
-            queue.push('I\`m a queue');
+            queue.enqueue('hello');
+            queue.enqueue('world');
+            queue.enqueue('I\'m a queue');
             assert.strictEqual(queue.isEmpty(), false);
-            assert.strictEqual(queue.pop(), 'hello');
-            assert.strictEqual(queue.pop(), 'world');
-            assert.strictEqual(queue.pop(), 'I\'m a queue');
+            assert.strictEqual(queue.dequeue(), 'hello');
+            assert.strictEqual(queue.dequeue(), 'world');
+            assert.strictEqual(queue.dequeue(), 'I\'m a queue');
             assert.strictEqual(queue.isEmpty(), true);
         });
     });

@@ -7,8 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "linkedlist": "mocha LinkedList/LinkedListTests.js",
-    "stack": "mocha Stack/StackTests.js",
+    "linkedlist": "mocha Tests/LinkedListTests.js",
+    "stack": "mocha Tests/StackTests.js",
     "test" : "mocha --recursive Tests"
   },
   "keywords": [
