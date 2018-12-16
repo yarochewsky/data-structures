@@ -18,6 +18,7 @@
             assert.strictEqual(ln.size, 2);
             assert.strictEqual(ln.front.value, 1);
             assert.strictEqual(ln.front.next.value, 2);
+            assert.strictEqual(ln.back.value, 2);
         });
 
         it('should remove properly', () => {
@@ -27,6 +28,7 @@
             const one = ln.pop();
             assert.strictEqual(ln.size, 0);
             assert.strictEqual(ln.front, null);
+            assert.strictEqual(ln.back, null);
             assert.strictEqual(one.value, 1);
         }); 
         
@@ -42,12 +44,17 @@
             const one = ln.popFront();
             assert.strictEqual(ln.size, 1);
             assert.strictEqual(one.value, 1);
+            const two = ln.popFront();
+            assert.strictEqual(ln.size, 0);
+            assert.strictEqual(two.value, 2);
+            assert.strictEqual(ln.back, null);
         });
         
         it('should add to the front', () => {
             ln.pushFront(1);
-            assert.strictEqual(ln.size, 2);
+            assert.strictEqual(ln.size, 1);
             assert.strictEqual(ln.front.value, 1);
+            assert.strictEqual(ln.back.value, 1);
         });
     });
 
