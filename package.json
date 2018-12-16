@@ -8,7 +8,8 @@
   },
   "scripts": {
     "linkedlist": "mocha LinkedList/LinkedListTests.js",
-    "stack": "mocha Stack/StackTests.js"
+    "stack": "mocha Stack/StackTests.js",
+    "test" : "mocha --recursive Tests"
   },
   "keywords": [
     "data",

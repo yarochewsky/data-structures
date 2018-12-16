@@ -2,7 +2,7 @@
 
 (function main() {
 
-    const LinkedList = require('./LinkedList.js');
+    const LinkedList = require('../LinkedList/LinkedList.js');
     const assert = require('assert');    
 
     describe('Linked List Test Suite', () => {

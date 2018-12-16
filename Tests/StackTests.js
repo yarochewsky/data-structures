@@ -2,7 +2,7 @@
 
 (function main() {
     
-    const Stack = require('./Stack.js');
+    const Stack = require('../Stack/Stack.js');
     const assert = require('assert');
 
     describe('Stack Test Suite', () => {
