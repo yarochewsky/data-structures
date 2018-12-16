@@ -23,7 +23,7 @@
             assert.strictEqual(removedElement, 1);
         });
 
-        it('should throw error when dequeueped empty', () => {
+        it('should throw error when dequeued empty', () => {
             assert.throws(() => {
                 queue.dequeue();
             }, { message : 'Queue is empty' });
