@@ -1,32 +1,44 @@
+const LinkedList = require('../LinkedList/LinkedList.js');
+
 class Stack {
+    /**
+     * constructor - instantiates a new Stack object
+    */
     constructor() {
-        this.arr = [];
+        this.ln = new LinkedList();
     }
 
+    /*
+     * peek - returns the element on the top of the stack (null is empty)
+    */
+    peek() {
+        return this.ln.front.value;
+    }
+
+    /*
+     * push - pushes a new element to the stack
+    */
     push(element) {
-        this.arr.push(element);
+        this.ln.push(element);
     }
 
+    /*
+     * pop - pop an element from the top of the stack, throws error
+     *       if stack is empty
+     *       Returns the removed element
+    */
     pop(element) {
-        if (this.arr.length == 0) {
+        if (this.ln.size == 0) {
             throw new Error('Stack is empty');
         }
-        // LIFO ADT -> pop is from the top of the stack,
-        //             back of the list
-        this.arr.pop();
+        return this.ln.popFront().value;
     }
 
+    /*
+     * isEmpty - returns whether stack is empty
+    */
     isEmpty() {
-        return (this.arr.length == 0);
-    }
-
-    toString() {
-        let stackString = 'TOP';
-        this.arr.forEach((element) => {
-            stackString += ' | ' + element;
-        });
-        stackString += ' BOTTOM';
-        return stackString;
+        return (this.ln.size == 0);
     }
 }
 

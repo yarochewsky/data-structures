@@ -1,0 +1,24 @@
+{
+  "name": "data-structures",
+  "version": "1.0.0",
+  "description": "Classic data structures in JS",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "linkedlist": "mocha LinkedList/LinkedListTests.js",
+    "stack": "mocha Stack/StackTests.js"
+  },
+  "keywords": [
+    "data",
+    "structures",
+    "js"
+  ],
+  "author": "Daniel Fonseca Yarochewsky",
+  "license": "ISC",
+  "devDependencies": {
+    "assert": "^1.4.1",
+    "mocha": "^5.2.0"
+  }
+}
