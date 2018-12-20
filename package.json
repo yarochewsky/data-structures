@@ -9,6 +9,7 @@
   "scripts": {
     "linkedlist": "mocha Tests/LinkedListTests.js",
     "stack": "mocha Tests/StackTests.js",
+    "bst" : "mocha Tests/BinarySearchTreeTests.js",
     "heap" : "mocha Tests/HeapTests.js",
     "test": "mocha --recursive Tests"
   },
