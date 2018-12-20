@@ -7,7 +7,7 @@
 
     describe('Heap Test Suite', () => {
         const heap = new Heap();
-        
+               
         it('should insert', () => {
             heap.insert(1);
             heap.insert(2);
@@ -28,7 +28,7 @@
         });
 
         it('should percolate down', () => {
-            heap.deleteMin();
+            heap.insert(5);
             const two = heap.deleteMin();
             assert.strictEqual(two, 2);
         });
@@ -38,6 +38,16 @@
             assert.strictEqual(heap.size(), 7);
             assert.strictEqual(heap.deleteMin(), 1);
         });
+       
+        it('should throw when deleted from empty', () => {
+            for (let i = 0; i < 6; i++) {
+                heap.deleteMin();
+            }
+            assert.throws(() => {
+                heap.deleteMin();
+            }, { message : 'Heap is empty' });
+        }); 
+
     });
 
 }());
