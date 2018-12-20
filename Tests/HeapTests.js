@@ -29,8 +29,8 @@
 
         it('should percolate down', () => {
             heap.insert(5);
-            const two = heap.deleteMin();
-            assert.strictEqual(two, 2);
+            assert.strictEqual(heap.deleteMin(), 2);
+            assert.strictEqual(heap.deleteMin(), 3);
         });
 
         it('should build heap', () => {
@@ -47,6 +47,16 @@
                 heap.deleteMin();
             }, { message : 'Heap is empty' });
         }); 
+    
+        it('should work for multiple elements', () => {
+            const heapSeed = ['f', 'e', 'd', 'c', 'b', 'a'];
+            heap.buildHeap(heapSeed);
+            assert.strictEqual(heap.size(), heapSeed.length);
+            for (let i = heapSeed.length - 1; i >= 0; i--) {
+                assert.strictEqual(heap.deleteMin(), heapSeed[i]);
+            }
+            assert.strictEqual(heap.size(), 0);
+        });
 
     });
 

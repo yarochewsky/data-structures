@@ -64,7 +64,7 @@ class Heap {
             this.heapArray.push(data[i]);
         }
         // percolate down
-        for (let i = this.heapArray[0] / 2; i >= 1; i--) {
+        for (let i = Math.floor(this.heapArray[0] / 2); i >= 1; i--) {
             // we call the helper here because we want to specify the index
             percolateDownHelper(this.heapArray[i], this.heapArray, i);
         }
@@ -91,17 +91,30 @@ const percolateDown = (heapArray) => {
 };
 
 const percolateDownHelper = (target, heapArray, index) => {
-    if (target > heapArray[2 * index]) {
-        // change with left child
-        heapArray[index] = heapArray[2 * index];
-        heapArray[2 * index] = target;
-        percolateDownHelper(target, heapArray, 2 * index);
-    } else if (target > heapArray[2 * index + 1]) {
-        // change with right child
-        heapArray[index] = heapArray[2 * index + 1];
-        heapArray[2 * index + 1] = target;
-        percolateDownHelper(target, heapArray, 2 * index + 1);
+    if (index < heapArray[0]) {
+        if (target > heapArray[2 * index] || target > heapArray[2 * index + 1]) {
+            const minIndex = findMinChild(heapArray[2 * index], heapArray[2 * index + 1], target); 
+            // ok, parent is greater than some child
+            // we do a neat trick of summing minIndex since it gives us
+            // the left child if the parent is greater than it (2 * i)
+            // or the right child if the parent is greater than it (2 * i + 1)
+            heapArray[index] = heapArray[2 * index + minIndex];
+            heapArray[2 * index + minIndex] = target;
+            percolateDownHelper(target, heapArray, 2 * index + minIndex);
+        }
     }
+};
+
+/**
+ * findMinChild - finds the child less than target
+ * @left : left child
+ * @right : right child
+ * @target : parent to be compared with children
+ * Returns 0 if left < parent, 1 if right > parent
+*/
+const findMinChild = (left, right, parentValue) => {
+    if (left < right || right == undefined) return 0;
+    return 1;
 };
 
 module.exports = Heap;
