@@ -9,7 +9,7 @@
   "scripts": {
     "linkedlist": "mocha Tests/LinkedListTests.js",
     "stack": "mocha Tests/StackTests.js",
-    "test" : "mocha --recursive Tests"
+    "test": "mocha --recursive Tests"
   },
   "keywords": [
     "data",
@@ -21,5 +21,8 @@
   "devDependencies": {
     "assert": "^1.4.1",
     "mocha": "^5.2.0"
+  },
+  "dependencies": {
+    "floodjs": "^0.1.0"
   }
 }

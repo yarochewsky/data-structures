@@ -1,6 +1,5 @@
 const LinkedList = require('../LinkedList/LinkedList.js');
 
-
 class Queue {
     /*
      * instantiantes a new Queue object
