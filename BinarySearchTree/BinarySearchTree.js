@@ -6,8 +6,6 @@ class BinarySearchTree {
     */
     constructor() {
         this.root = null;
-        this.left = null;
-        this.rigth = null;
         this.size = 0;
     }
 
