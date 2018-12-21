@@ -2,5 +2,5 @@
 
 + **insert** O(n) (avg. O(log n))
 + **remove** O(n) (avg. O(log n))
-+ **size** O(1)
++ **size** O(n)
 + **buildTree** O(n^2)
