@@ -1,6 +1,7 @@
 'use strict';
 
 const BinarySearchTree = require('../BinarySearchTree/BinarySearchTree.js');
+const assert = require('assert');
 
 describe('Binary Search Tree Test Suite', () => {
     const bst = new BinarySearchTree();
@@ -23,18 +24,18 @@ describe('Binary Search Tree Test Suite', () => {
     });
 
     it('should work for multiple elments', () => {
-        const seedDict = {'c' : 1, 'a' : 2, 'd' : 3, 'e' : 4};
+        const seedDict = {'f' : 1, 'd' : 2, 'g' : 3, 'c' : 4, 'e' : 5};
         bst.buildTree(seedDict);
-        assert.strictEqual(bst.size(), 4);
+        assert.strictEqual(bst.size(), 5);
         Object.entries(seedDict).forEach(([key, value]) => {
             assert.strictEqual(bst.find(key), value);
         });
         bst.remove('d');
-        assert.strictEqual(bst.size(), 3);
+        assert.strictEqual(bst.size(), 4);
         assert.strictEqual(bst.find('d'), null);
         bst.insert('d', 4);
         assert.strictEqual(bst.find('d'), 4);
-        assert.strictEqual(bst.size(), 4);
+        assert.strictEqual(bst.size(), 5);
     });
 
     it('should throw for deleting non-existant key', () => {

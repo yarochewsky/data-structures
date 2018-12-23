@@ -25,6 +25,7 @@ class BinarySearchTree {
     remove(key) {
         const foundNode = this.find(key);
         if (!foundNode) throw new Error('Key does not exist'); 
+        this.root = removeHelper(key, this.root);
     }
 
     /**
@@ -89,23 +90,41 @@ const findHelper = (key, node) => {
 const removeHelper = (key, node) => {
     if (!node) return node;
     if (node.key > key) {
-        return removeHelper(key, node.left);
+        node.left = removeHelper(key, node.left);
     } else if (node.key < key) {
-       return removeHelper(key, node.right);
+       node.right = removeHelper(key, node.right);
     } else {
-        if (!foundNode.left && !foundNode.right) {
+        if (!node.left && !node.right) {
             // leaf case
             return null;
-        } else if (!foundNode.left && foundNode.right ||
-                foundNode.left && !foundNode.right) {
+        } else if (!node.left && node.right ||
+                node.left && !node.right) {
             // lonely child case; raise child to deleted parent
-            return foundNode.left ? foundNode.left : foundNode.right;
+            return node.left ? node.left : node.right;
         } else {
             // two children case
+            // find min of right subtree, replace parent
+            const sucessor = findMin(node.right);
+            sucessor.left = node.left;
+            sucessor.rigth = node.right;
+            return sucessor;
         }
     } 
     return node;
 };
+
+
+const findMin = (node) => {
+    if (!node.left && !node.right) {
+        return node;
+    }
+    else if (!node.left && node.right) {
+        const sucessor = node;
+        node = node.right;
+        return sucessor;
+    }
+    return findMin(node.left);
+}
 
 const sizeHelper = (node) => {
     if (!node) return 0;
