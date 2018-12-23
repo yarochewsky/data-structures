@@ -24,18 +24,35 @@ describe('Binary Search Tree Test Suite', () => {
     });
 
     it('should work for multiple elments', () => {
-        const seedDict = {'f' : 1, 'd' : 2, 'g' : 3, 'c' : 4, 'e' : 5};
+        const seedDict = {'h' : 1, 'd' : 2, 'j' : 3, 'b' : 4, 'e' : 5,
+                          'k' : 6, 'i' : 7, 'a' : 8, 'c' : 9 };
         bst.buildTree(seedDict);
-        assert.strictEqual(bst.size(), 5);
+        assert.strictEqual(bst.size(), 9);
         Object.entries(seedDict).forEach(([key, value]) => {
             assert.strictEqual(bst.find(key), value);
         });
-        bst.remove('d');
-        assert.strictEqual(bst.size(), 4);
-        assert.strictEqual(bst.find('d'), null);
-        bst.insert('d', 4);
-        assert.strictEqual(bst.find('d'), 4);
-        assert.strictEqual(bst.size(), 5);
+        bst.insert('f', 10);
+        assert.strictEqual(bst.size(), 10);
+        assert.strictEqual(bst.find('f'), 10);
+        bst.insert('l', 11);
+        assert.strictEqual(bst.size(), 11);
+        assert.strictEqual(bst.find('l'), 11);
+        bst.remove('b');
+        // 2 child case
+        assert.strictEqual(bst.size(), 10);
+        assert.strictEqual(bst.find('b'), null);
+        assert.strictEqual(bst.find('c'), 9);
+        bst.remove('j');
+        assert.strictEqual(bst.size(), 9);
+        assert.strictEqual(bst.find('j'), null);
+        // leaf case
+        bst.remove('l');
+        assert.strictEqual(bst.size(), 8);
+        assert.strictEqual(bst.find('l'), null);
+        // lone child case
+        bst.remove('e');
+        assert.strictEqual(bst.size(), 7);
+        assert.strictEqual(bst.find('e'), null);
     });
 
     it('should throw for deleting non-existant key', () => {
