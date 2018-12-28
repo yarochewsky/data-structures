@@ -20,7 +20,22 @@ class HashTable {
      *          Returns the old value if a key already exists, or null
     */
     insert(key, value) {
-        
+        const hashedKey = hash(key);
+        if (!this.table[hashedKey]) {
+            this.table[hashedKey] = new LinkedList();
+            this.table[hashedKey].pushFront(value); 
+        } else {
+            const itr = this.table[hashedKey].iterator();
+            while (itr.hasNext()) {
+                if (itr.get() === key) {
+                    const oldValue = itr.get().value;
+                    itr.set(value);
+                    return oldValue;
+                }
+                itr.next();
+            }
+        }
+        return null;
     }
 
     /**
@@ -31,6 +46,11 @@ class HashTable {
     find(key) {
         const hashedKey = hash(key);
         if (this.table[hashedKey]) {
+            const itr = this.table[hashedKey].iterator();
+            while (itr.hasNext()) {
+                if (itr.get() === key) return itr.get().value;
+                itr.next();
+            }
         }
         return null;
     }
@@ -42,7 +62,6 @@ class HashTable {
      * @key : key of value to be removed
     */
     remove(key) {
-
     }
 
     /**
@@ -54,7 +73,7 @@ class HashTable {
 }
 
 const hash = (key) => {
-    return hashedKey;
+    return key;
 };
 
 module.exports = HashTable;

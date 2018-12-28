@@ -94,6 +94,13 @@ class Iterator {
     }
 
     /**
+     * get - returns outstanding element at the iterator
+    */
+    get() {
+        return this.curr;
+    }
+
+    /**
      * hasNext - returns whether or not iterator can go to next element
     */
     hasNext() {
@@ -109,6 +116,14 @@ class Iterator {
         if (!this.hasNext()) throw new Error('Next element is null');
         this.curr = this.curr.next;
         return this.curr;
+    }
+
+    /**
+     * set - sets the value of the current node to the given one
+     * @value : value to set node's value to
+    */
+    set(value) {
+        this.curr.value = value;
     }
 
     /**
