@@ -113,7 +113,6 @@ const removeHelper = (key, node) => {
     return node;
 };
 
-
 const findMin = (node) => {
     if (!node.left && !node.right) {
         return node;

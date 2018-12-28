@@ -78,6 +78,50 @@ class LinkedList {
         this.front = this.front.next;
         return removedNode;
     }
+
+    iterator() {
+        return new Iterator(this);
+    }
+}
+
+class Iterator {
+    /**
+     * constructor - initializes a new iterator for the linked list
+     * @linkedList : linked list to iterate over
+    */
+    constructor(linkedList) {
+        this.curr = linkedList.front;
+    }
+
+    /**
+     * hasNext - returns whether or not iterator can go to next element
+    */
+    hasNext() {
+        if (!this.curr) return false;
+        return this.curr.next == null ? false : true;
+    }
+
+    /**
+     * next - advances the iterator to the next element
+     *        Throws error if called when hasNext == false
+    */
+    next() {
+        if (!this.hasNext()) throw new Error('Next element is null');
+        this.curr = this.curr.next;
+        return this.curr;
+    }
+
+    /**
+     * remove - removes the current element of the linked list, and skips
+     *          to the next one. (null if removed the tail of the list)
+     *          Returns the removed element, or null if current node is empty
+    */
+    remove() {
+        if (!this.curr) return null;
+        const removedNode = this.curr;
+        this.curr = this.curr.next;
+        return removedNode;
+    }
 }
 
 module.exports = LinkedList;
