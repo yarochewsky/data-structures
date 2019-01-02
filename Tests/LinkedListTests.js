@@ -76,6 +76,9 @@
                 assert.strictEqual(ln.size, 1);
             });
 
+            it('should set value', () => {
+                assert.strictEqual(ln.set(2, 3), 3); 
+            });
         });
         
         describe('Iterator Tests', () => {
@@ -92,12 +95,6 @@
                assert.strictEqual(itr.hasNext(), true); 
             });
 
-            it('should throw if called set(x) when iterator is before first element', () => {
-                assert.throws(() => {
-                    itr.set(1);
-                }, { message : 'Iterator is not pointing at any element' });
-            });
-       
             it('should get current value', () => {
                 assert.strictEqual(itr.next(), 1);
             });

@@ -11,7 +11,7 @@
         it('should insert', () => {
             assert.strictEqual(hashTable.insert(1, 2), null);
             assert.strictEqual(hashTable.insert(2, 3), null);
-//            assert.strictEqual(hashTable.size(), 2);
+            assert.strictEqual(hashTable.size, 2);
         });
 
         it('should find', () => {
@@ -24,12 +24,11 @@
         });
 
         it('should remove', () => {
-            console.log(hashTable.table);
-            assert.strictEqual(hashTable.remove(1), 5);
-            assert.strictEqual(hashTable.remove(2), 3);
+            assert.strictEqual(hashTable.remove(1).value, 5);
+            assert.strictEqual(hashTable.remove(2).value, 3);
             assert.strictEqual(hashTable.find(1), null);
             assert.strictEqual(hashTable.find(2), null);
-            assert.strictEqual(hashTable.size(), 0);
+            assert.strictEqual(hashTable.size, 0);
         });
         
         it('should throw for non-existant key', () => {
@@ -44,13 +43,13 @@
             Object.entries(hashTableSeed).forEach(([key, value]) => {
                 assert.strictEqual(hashTable.insert(key, value), null);
                 assert.strictEqual(hashTable.find(key), value);
-                assert.strictEqual(hashTable.size(), value);
+                assert.strictEqual(hashTable.size, value);
             });
             Object.entries(hashTableSeed).forEach(([key, value]) => {
-                assert.strictEqual(hashTable.remove(key), value);
+                assert.strictEqual(hashTable.remove(key).value, value);
                 assert.strictEqual(hashTable.find(key), null);
             });
-            assert.strictEqual(hashTable.size(), 0);
+            assert.strictEqual(hashTable.size, 0);
         });
     });
 

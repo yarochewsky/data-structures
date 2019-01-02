@@ -112,6 +112,24 @@ class LinkedList {
         return null; 
     }
 
+    /**
+     * set - sets value of an element to new value
+     * @element : element to set value to
+     * @value : new value to set element to
+     * Returns new value replaced on element, or null if element
+     * was not found
+    */
+    set(element, value) {
+        let curr = this.front;
+        while (curr) {
+            if (curr.value == element) {
+                curr.value = value;
+                return value;
+            }
+        }
+        return null;
+    }
+
     iterator() {
         return new Iterator(this);
     }
@@ -150,16 +168,6 @@ class Iterator {
             this.curr = this.curr.next;
         }
         return this.curr.value;
-    }
-
-    /**
-     * set - sets the value of the current node to the given one
-     *       throws error if iterator is not pointing at any element
-     * @value : value to set node's value to
-    */
-    set(value) {
-        if (!this.curr) throw new Error('Iterator is not pointing at any element');
-        this.curr.value = value;
     }
 }
 

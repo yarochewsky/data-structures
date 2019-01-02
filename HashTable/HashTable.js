@@ -25,14 +25,17 @@ class HashTable {
             // case 1 : key is not there yet
             this.table[hashedKey] = new LinkedList();
             this.table[hashedKey].pushFront({ key : key, value : value });
+            this.size++;
             return null;
         }
         // case 2 : key is there, replace by the new value, and
         //          return old one
-        return actOnElement(this.table, key, (itr) => {
-            const oldValue = itr.get().value;
-            itr.set({ key : key, value : value });
-            return oldValue;
+        return actOnElement(this.table, key, (element) => {
+            const oldValue = element.value;
+            if (this.table[hashedKey].set(element, { key : key, value : value })) {
+                return oldValue;
+            }
+            return null;
         });
     }
 
@@ -42,8 +45,8 @@ class HashTable {
      * Returns the value or null if the key is not found
     */
     find(key) {
-        return actOnElement(this.table, key, (itr) => {
-            return itr.get().value;
+        return actOnElement(this.table, key, (element) => {
+            return element.value;
         });
     }
 
@@ -59,16 +62,10 @@ class HashTable {
             throw new Error('Key does not exist');
         }
         // case 2 : key is there. Remove and return value
-        return actOnElement(this.table, key, (itr) => {
-            return itr.remove().value; 
+        return actOnElement(this.table, key, (element) => {
+            this.size--;
+            return this.table[hash(key)].remove(element);
         });
-    }
-
-    /**
-     * Returns number of elements in the hash table
-    */
-    size() {
-        return this.size;
     }
 }
 
@@ -81,11 +78,11 @@ const actOnElement = (table, key, func) => {
     if (exists(hashedKey, table)) {
         const itr = table[hashedKey].iterator();
         while (itr.hasNext()) {
-            itr.next();
-            if (itr.get().key === key) {
+            const element = itr.next();
+            if (element.key == key) {
                 // re-assign result to the return value of the applied
                 // function
-                result = func.call(null, itr);
+                result = func.call(null, element);
             }
         }
     }
@@ -93,7 +90,7 @@ const actOnElement = (table, key, func) => {
 };
 
 const exists = (key, table)  => {
-    return typeof table[key] !== 'undefined';
+    return typeof table[key] !== 'undefined' && table[key].size != 0;
 };
 
 const hash = (key) => {
