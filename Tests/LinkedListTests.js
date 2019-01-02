@@ -58,6 +58,24 @@
                 assert.strictEqual(ln.front.value, 1);
                 assert.strictEqual(ln.back.value, 1);
             });
+
+            it('should remove specific value', () => {
+                // remove front
+                assert.strictEqual(ln.remove(1), 1);
+                assert.strictEqual(ln.size, 0);
+                assert.strictEqual(ln.front, null);
+                assert.strictEqual(ln.back, null);
+                ln.pushFront(2);
+                ln.pushFront(3);
+                ln.pushFront(4);
+                // remove middle
+                assert.strictEqual(ln.remove(3), 3);
+                // remove back
+                assert.strictEqual(ln.remove(4), 4);
+                assert.strictEqual(ln.back.value, 2);
+                assert.strictEqual(ln.size, 1);
+            });
+
         });
         
         describe('Iterator Tests', () => {
@@ -67,7 +85,6 @@
             before(() => {
                 ln.push(1);
                 ln.push(2);
-                ln.push(3);
                 itr = ln.iterator();                
             });
 
@@ -75,14 +92,19 @@
                assert.strictEqual(itr.hasNext(), true); 
             });
 
-            it('should skip to next', () => {
-                itr.next();
-                assert.strictEqual(itr.hasNext(), true);
-                assert.strictEqual(itr.curr.value, 2);
+            it('should throw if called set(x) when iterator is before first element', () => {
+                assert.throws(() => {
+                    itr.set(1);
+                }, { message : 'Iterator is not pointing at any element' });
+            });
+       
+            it('should get current value', () => {
+                assert.strictEqual(itr.next(), 1);
             });
 
-            it('should remove', () => {
-                assert.strictEqual(itr.remove().value, 2);
+            it('should skip to next', () => {
+                assert.strictEqual(itr.hasNext(), true);
+                assert.strictEqual(itr.next(), 2);
             });
 
             it('should not have next', () => {
@@ -95,10 +117,6 @@
                 }, { message : 'Next element is null' });
             });
 
-            it('should return null when removed empty', () => {
-                assert.strictEqual(itr.remove().value, 3);
-                assert.strictEqual(itr.remove(), null);
-            });
         });
 
     });

@@ -4,4 +4,5 @@
 + **pushFront** O(1)
 + **pop** O(n)
 + **popFront** O(1)
++ **remove(value)** O(n)
 + **isEmpty** O(1)

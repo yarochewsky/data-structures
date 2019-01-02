@@ -79,39 +79,6 @@ class LinkedList {
         return removedNode;
     }
 
-
-    /**
-     * remove - removes a node with the given value from the list
-     * @value : value to be removed
-     * Returns removed value or null if value is not present. Throws error
-     * if list is empty
-    */
-    remove(value) {
-        if (this.size == 0) throw new Error('Linked list is empty');
-        if (this.front.value == value) {
-            this.front = this.front.next;
-            if (this.size == 1) {
-                this.back = this.front;
-            }
-            this.size--;
-            return value;
-        }
-        let curr = this.front;
-        while (curr.next) {
-            if (curr.next.value == value) {
-                curr.next = curr.next.next;
-                if (this.back.value == value) {
-                    this.back = curr;
-                }
-                this.size--;
-                return value;
-            } else {
-                curr = curr.next; 
-            }
-        }
-        return null; 
-    }
-
     iterator() {
         return new Iterator(this);
     }
@@ -123,43 +90,52 @@ class Iterator {
      * @linkedList : linked list to iterate over
     */
     constructor(linkedList) {
-        this.ln = linkedList;
-        this.curr = null;
-        this.first = true;
+        this.curr = linkedList.front;
+    }
+
+    /**
+     * get - returns outstanding element at the iterator
+    */
+    get() {
+        return this.curr.value;
     }
 
     /**
      * hasNext - returns whether or not iterator can go to next element
     */
     hasNext() {
-        if (this.first) return true;
-        return (!this.curr || this.curr.next == null) ? false : true;
+        if (!this.curr) return false;
+        return this.curr.next == null ? false : true;
     }
 
     /**
      * next - advances the iterator to the next element
-     *        and returns the advanced element
      *        Throws error if called when hasNext == false
     */
     next() {
         if (!this.hasNext()) throw new Error('Next element is null');
-        if (this.first) {
-            this.curr = this.ln.front;
-            this.first = false;
-        } else {
-            this.curr = this.curr.next;
-        }
-        return this.curr.value;
+        this.curr = this.curr.next;
+        return this.curr;
     }
 
     /**
      * set - sets the value of the current node to the given one
-     *       throws error if iterator is not pointing at any element
      * @value : value to set node's value to
     */
     set(value) {
-        if (!this.curr) throw new Error('Iterator is not pointing at any element');
         this.curr.value = value;
+    }
+
+    /**
+     * remove - removes the current element of the linked list, and skips
+     *          to the next one. (null if removed the tail of the list)
+     *          Returns the removed element, or null if current node is empty
+    */
+    remove() {
+        if (!this.curr) return null;
+        const removedNode = this.curr;
+        this.curr = this.curr.next;
+        return removedNode;
     }
 }
 

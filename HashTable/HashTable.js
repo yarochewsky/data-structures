@@ -21,21 +21,19 @@ class HashTable {
     */
     insert(key, value) {
         const hashedKey = hash(key);
-        if (!this.table[hashedKey]) {
+        if (!exists(hashedKey, this.table)) {
+            // case 1 : key is not there yet
             this.table[hashedKey] = new LinkedList();
-            this.table[hashedKey].pushFront(value); 
-        } else {
-            const itr = this.table[hashedKey].iterator();
-            while (itr.hasNext()) {
-                if (itr.get() === key) {
-                    const oldValue = itr.get().value;
-                    itr.set(value);
-                    return oldValue;
-                }
-                itr.next();
-            }
+            this.table[hashedKey].pushFront({ key : key, value : value });
+            return null;
         }
-        return null;
+        // case 2 : key is there, replace by the new value, and
+        //          return old one
+        return actOnElement(this.table, key, (itr) => {
+            const oldValue = itr.get().value;
+            itr.set({ key : key, value : value });
+            return oldValue;
+        });
     }
 
     /**
@@ -44,15 +42,9 @@ class HashTable {
      * Returns the value or null if the key is not found
     */
     find(key) {
-        const hashedKey = hash(key);
-        if (this.table[hashedKey]) {
-            const itr = this.table[hashedKey].iterator();
-            while (itr.hasNext()) {
-                if (itr.get() === key) return itr.get().value;
-                itr.next();
-            }
-        }
-        return null;
+        return actOnElement(this.table, key, (itr) => {
+            return itr.get().value;
+        });
     }
 
     /**
@@ -62,6 +54,14 @@ class HashTable {
      * @key : key of value to be removed
     */
     remove(key) {
+        // case 1 : key does not exist
+        if (!this.find(key)) {
+            throw new Error('Key does not exist');
+        }
+        // case 2 : key is there. Remove and return value
+        return actOnElement(this.table, key, (itr) => {
+            return itr.remove().value; 
+        });
     }
 
     /**
@@ -71,6 +71,30 @@ class HashTable {
         return this.size;
     }
 }
+
+const actOnElement = (table, key, func) => {
+    // we store the result of the action of the passed-in
+    // function. In case the element with the corresponding key
+    // is not found, this will always return null
+    let result = null;
+    const hashedKey = hash(key);
+    if (exists(hashedKey, table)) {
+        const itr = table[hashedKey].iterator();
+        while (itr.hasNext()) {
+            itr.next();
+            if (itr.get().key === key) {
+                // re-assign result to the return value of the applied
+                // function
+                result = func.call(null, itr);
+            }
+        }
+    }
+    return result;
+};
+
+const exists = (key, table)  => {
+    return typeof table[key] !== 'undefined';
+};
 
 const hash = (key) => {
     return key;
