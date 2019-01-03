@@ -6,4 +6,4 @@ Implementation of Classic Data Structures in Node JS
 - [x] Queue
 - [x] Heap
 - [x] Binary Search Tree
-- [ ] Hash Table
+- [x] Hash Table

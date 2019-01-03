@@ -94,7 +94,8 @@ const exists = (key, table)  => {
 };
 
 const hash = (key) => {
-    return key;
+    let hash = (typeof key == 'string') ? key.charCodeAt() : key;
+    return hash % 31;
 };
 
 module.exports = HashTable;
